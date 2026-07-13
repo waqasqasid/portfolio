@@ -1,0 +1,16 @@
+{
+  "name": "Waqas Ali Shah - DevOps Engineer Portfolio",
+  "short_name": "Waqas Portfolio",
+  "description": "DevOps Engineer specializing in Linux, Docker, AWS and CI/CD automation.",
+  "start_url": "/portfolio/",
+  "display": "standalone",
+  "background_color": "#05070d",
+  "theme_color": "#05070d",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}
