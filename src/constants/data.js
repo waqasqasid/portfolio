@@ -9,7 +9,7 @@ export const PROFILE = {
   linkedin: 'https://www.linkedin.com/in/waqasqasid/',
   summary:
     "DevOps enthusiast with a background in mechanical engineering and 6 months of hands-on technical experience in diagnostics and system troubleshooting. Currently building expertise in cloud computing, CI/CD pipelines, and automation to deliver efficient, reliable deployment solutions.",
-  resumeFile: '/Waqas_Ali_Shah_Resume.pdf',
+  resumeFile: '/DevOps-JE.pdf',
 }
 
 export const NAV_LINKS = [
