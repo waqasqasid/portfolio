@@ -1,3 +1,4 @@
+import profileImg from '../assets/profile.jpg'
 import { motion } from 'framer-motion'
 import { MapPin, GraduationCap } from 'lucide-react'
 import SectionHeading from '../components/SectionHeading'
@@ -21,6 +22,13 @@ export default function About() {
             transition={{ duration: 0.6 }}
             className="glass rounded-2xl p-8"
           >
+            <img
+            src={profileImg}
+            alt="Waqas Ali Shah"
+            className="mb-6 h-28 w-28 rounded-full border-2 border-signal-cyan/40 object-cover shadow-glow-sm"
+            />
+
+
             <p className="leading-relaxed text-mist-300">
               I started out with a background in mechanical engineering, spending six Months
               doing hands-on diagnostics and system troubleshooting — work that trained me to
