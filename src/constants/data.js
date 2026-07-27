@@ -51,7 +51,7 @@ export const SKILL_GROUPS = [
   {
     category: 'Networking',
     icon: 'Network',
-    skills: ['Network Access Control Lists', 'Security Groups', 'File & Print Sharing (Samba)'],
+    skills: ['Network Access Control Lists', 'subnet', 'Security Groups', 'File & Print Sharing (Samba)'],
   },
   {
     category: 'CI/CD & Automation',
