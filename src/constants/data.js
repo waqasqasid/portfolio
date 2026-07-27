@@ -41,7 +41,7 @@ export const SKILL_GROUPS = [
   {
     category: 'AWS',
     icon: 'Cloud',
-    skills: ['EC2', 'ECS', 'ECR', 'VPC', 'Security Groups', 'NACLs'],
+    skills: ['EC2', 'ECS', 'ECR', 'VPC','Auto Scaling', 'Security Groups', 'NACLs'],
   },
   {
     category: 'Virtualization',
