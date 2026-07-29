@@ -1,7 +1,7 @@
 export const PROFILE = {
   name: 'Waqas Ali Shah',
   role: 'DevOps Engineer',
-  roles: ['DevOps Engineer', 'Cloud Engineer', 'Linux Administrator'],
+  roles: ['DevOps Engineer', 'Cloud Engineer'],
   location: 'Karachi, Pakistan',
   email: 'waqasqasid@gmail.com',
   phone: '923042620412',
