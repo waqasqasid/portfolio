@@ -24,7 +24,7 @@ export default function About() {
           >
             <img
             src={profileImg}
-            alt="Waqas Ali Shah"
+            alt="Waqas Qasid"
             className="mb-6 h-28 w-28 rounded-full border-2 border-signal-cyan/40 object-cover shadow-glow-sm"
             />
 

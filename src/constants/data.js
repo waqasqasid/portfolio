@@ -41,7 +41,7 @@ export const SKILL_GROUPS = [
   {
     category: 'AWS',
     icon: 'Cloud',
-    skills: ['EC2', 'ECS', 'ECR', 'Security Groups', 'NACLs'],
+    skills: ['EC2', 'ECS', 'ECR', 'VPC','Auto Scaling', 'Security Groups', 'NACLs'],
   },
   {
     category: 'Virtualization',
@@ -51,7 +51,7 @@ export const SKILL_GROUPS = [
   {
     category: 'Networking',
     icon: 'Network',
-    skills: ['Network Access Control Lists', 'Security Groups', 'File & Print Sharing (Samba)'],
+    skills: ['Network Access Control Lists', 'subnet', 'Security Groups', 'File & Print Sharing (Samba)'],
   },
   {
     category: 'CI/CD & Automation',
