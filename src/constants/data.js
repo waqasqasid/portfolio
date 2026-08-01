@@ -31,7 +31,7 @@ export const SKILL_GROUPS = [
   {
     category: 'Linux',
     icon: 'Terminal',
-    skills: ['User Management', 'Group Management','File Management', 'Samba Servers'],
+    skills: ['User Management', 'Group Management','File Management','Server Monitering & Management', 'Samba Servers'],
   },
   {
     category: 'Docker',
