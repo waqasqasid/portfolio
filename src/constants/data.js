@@ -36,7 +36,7 @@ export const SKILL_GROUPS = [
   {
     category: 'Docker',
     icon: 'Container',
-    skills: ['Containerization', 'Dockerfile Authoring', 'Image Management', 'Dev/Prod Parity'],
+    skills: ['Containerization', 'Dockerfile Creation','Container Management', 'Image Management'],
   },
   {
     category: 'AWS',
