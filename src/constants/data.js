@@ -56,7 +56,7 @@ export const SKILL_GROUPS = [
   {
     category: 'CI/CD & Automation',
     icon: 'Workflow',
-    skills: ['CI/CD Fundamentals', 'Deployment Automation', 'Cloud Deployment Concepts'],
+    skills: ['CI/CD Fundamentals', 'Deployment Automation', 'Github Action'],
   },
 ]
 
