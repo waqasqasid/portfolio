@@ -30,7 +30,7 @@ export default function About() {
 
 
             <p className="leading-relaxed text-mist-300">
-              I started out with a background in mechanical engineering, spending six Months
+              I started out with a background in mechanical engineering, spending One-Year
               doing hands-on diagnostics and system troubleshooting — work that trained me to
               think in root causes, not symptoms. That instinct carried directly into DevOps:
               I care about <span className="text-mist-100">why</span> a system fails, not just
