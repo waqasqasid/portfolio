@@ -39,7 +39,7 @@ export default function About() {
             <p className="mt-4 leading-relaxed text-mist-300">
               Since then I've been deliberately building toward infrastructure and cloud work —
               administering Linux systems day to day, containerizing applications with Docker,
-              and provisioning AWS infrastructure (EC2, ECS, ECR) with proper network security in
+              and provisioning AWS infrastructure (EC2, ECS, ECR, VPC, Auto Scaling and ELB) with proper network security in
               place. I'm currently completing a Bachelor's in Information Technology while
               continuing to build hands-on lab experience in CI/CD and automation.
             </p>
