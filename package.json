@@ -3,14 +3,15 @@
   "private": true,
   "version": "1.0.0",
   "type": "module",
-  "homepage": "https://waqasalishah.github.io/portfolio",
+  "homepage": "https://waqas.site.je",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist"
+    "deploy": "gh-pages -d dist",
+    "build:infinity": "vite build --base=/ --outDir dist-infinity"
   },
   "dependencies": {
     "framer-motion": "^11.2.10",

@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://waqasalishah.github.io/portfolio/sitemap.xml
+Sitemap: https://waqas.site.je/sitemap.xml
