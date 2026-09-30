@@ -7,7 +7,7 @@ export default function ScrollToTop() {
 
   useEffect(() => {
     const onScroll = () => setVisible(window.scrollY > 600)
-    window.addEventListener('scroll', onScroll)
+    window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
@@ -18,13 +18,13 @@ export default function ScrollToTop() {
           initial={{ opacity: 0, scale: 0.6, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.6, y: 20 }}
-          whileHover={{ scale: 1.1 }}
+          whileHover={{ y: -3 }}
           whileTap={{ scale: 0.9 }}
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
           aria-label="Back to top"
-          className="fixed bottom-8 right-6 md:right-10 z-40 flex h-12 w-12 items-center justify-center rounded-full bg-signal-gradient shadow-glow"
+          className="fixed bottom-6 right-5 z-40 flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-ink-900/80 text-signal-cyan shadow-glow-sm backdrop-blur-xl md:bottom-8 md:right-8"
         >
-          <ArrowUp className="h-5 w-5 text-ink-950" />
+          <ArrowUp className="h-5 w-5" />
         </motion.button>
       )}
     </AnimatePresence>

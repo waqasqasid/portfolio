@@ -4,7 +4,8 @@ export const PROFILE = {
   roles: ['DevOps Engineer', 'Cloud Engineer'],
   location: 'Karachi, Pakistan',
   email: 'waqasqasid@gmail.com',
-  phone: '923042620412',
+  phone: '+923042620412',
+  phoneDisplay: '+92 304 2620412',
   github: 'https://github.com/waqasqasid',
   linkedin: 'https://www.linkedin.com/in/waqasqasid/',
   summary:
@@ -24,7 +25,7 @@ export const STATS = [
   { label: 'Core Skill Areas', value: 6, suffix: '+' },
   { label: 'Hands-on Lab Projects', value: 8, suffix: '' },
   { label: 'Linux Distros Administered', value: 3, suffix: '' },
-  { label: 'Months in DevOps Internship', value: 6, suffix: '+' },
+  { label: 'Months as System Administrator', value: 6, suffix: '+' },
 ]
 
 export const SKILL_GROUPS = [
@@ -62,9 +63,24 @@ export const SKILL_GROUPS = [
 
 export const EXPERIENCE = [
   {
-    role: 'DevOps Internship',
+    role: 'Junior DevOps Engineer',
+    company: 'SNJ Global',
+    period: '2026 – Present',
+    points: [
+      'Working as a Junior DevOps Engineer, supporting development, deployment, and infrastructure operations.',
+      'Managing and maintaining CI/CD workflows to streamline application build, testing, and deployment processes.',
+      'Working with Linux environments for server management, configuration, and troubleshooting.',
+      'Using Git and GitHub for source control and collaborative development workflows.',
+      'Working with Docker to containerize applications and maintain consistent deployment environments.',
+      'Assisting with cloud infrastructure, deployment automation, monitoring, and system maintenance.',
+      'Troubleshooting deployment, configuration, and environment-related issues in collaboration with development teams.',
+      'Creating scripts and automations to reduce repetitive operational tasks and improve workflow efficiency.',
+    ],
+  },
+  {
+    role: 'System Administrator',
     company: 'Al-Nafi International College',
-    period: 'Internship',
+    period: 'System Administration',
     points: [
       'Built foundational knowledge of DevOps practices, including CI/CD pipelines, automation, and cloud deployment.',
       'Set up and managed Samba servers to facilitate file sharing and printing services across multiple operating systems.',
@@ -75,7 +91,7 @@ export const EXPERIENCE = [
   {
     role: 'Sales & Support Executive',
     company: 'Al-Nafi International College',
-    period: 'Prior Role',
+    period: '6 Years',
     points: [
       'Identified and engaged potential students for IT diploma programs.',
       "Presented Al-Nafi's IT diplomas, highlighting benefits, certifications, and career outcomes.",
@@ -157,7 +173,7 @@ export const PROJECTS = [
   {
     title: 'CI/CD Pipeline Fundamentals',
     description:
-      'Explored CI/CD concepts end-to-end during the DevOps internship, mapping out an automated build-to-deploy pipeline for a sample app.',
+      'Explored CI/CD concepts end-to-end while working as a System Administrator, mapping out an automated build-to-deploy pipeline for a sample app.',
     stack: ['CI/CD', 'Automation', 'Docker'],
     github: 'https://github.com/waqasalishah',
     demo: '',

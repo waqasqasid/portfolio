@@ -3,19 +3,58 @@
 @tailwind utilities;
 
 @layer base {
-  * {
+  /* Light theme (default). Values are RGB channels so Tailwind opacity modifiers work. */
+  :root {
+    --ink-950: 240 246 255;
+    --ink-900: 255 255 255;
+    --ink-800: 232 241 254;
+    --ink-700: 219 234 254;
+    --ink-600: 191 219 254;
+    --mist-500: 100 116 139;
+    --mist-400: 71 85 105;
+    --mist-300: 51 65 85;
+    --mist-200: 30 41 59;
+    --mist-100: 15 23 42;
+    --signal-blue: 37 99 235;
+    --signal-cyan: 8 145 178;
+    --signal-violet: 99 102 241;
+    --signal-mint: 5 150 105;
+    --overlay: 30 64 175;
+    --glow-alpha: 0.45;
+    --shadow-card: 0 1px 2px 0 rgb(30 64 175 / 0.05), 0 24px 48px -28px rgb(37 99 235 / 0.35);
+    --scroll-track: #e8f1fe;
+    color-scheme: light;
+  }
+
+  /* Dark palette, used for the hero terminal so it still reads as a terminal. */
+  .theme-dark {
+    --ink-950: 5 7 13;
+    --ink-900: 10 14 26;
+    --ink-800: 15 22 38;
+    --ink-700: 22 31 54;
+    --ink-600: 32 44 72;
+    --mist-500: 123 135 153;
+    --mist-400: 148 163 184;
+    --mist-300: 179 191 209;
+    --mist-200: 205 214 228;
+    --mist-100: 231 236 245;
+    --signal-blue: 59 130 246;
+    --signal-cyan: 34 211 238;
+    --signal-violet: 129 140 248;
+    --signal-mint: 52 211 153;
+    --overlay: 255 255 255;
+    --glow-alpha: 0.55;
+    --shadow-card: 0 1px 0 0 rgb(255 255 255 / 0.05) inset, 0 20px 40px -24px rgb(0 0 0 / 0.8);
+    color-scheme: dark;
+  }
+
+  html {
     scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
   }
 
   body {
     @apply bg-ink-950 text-mist-100 font-body antialiased;
-    background-image: radial-gradient(
-        ellipse 80% 50% at 50% -10%,
-        rgba(59, 130, 246, 0.18),
-        transparent
-      ),
-      radial-gradient(ellipse 60% 40% at 90% 20%, rgba(34, 211, 238, 0.08), transparent);
-    background-attachment: fixed;
   }
 
   h1, h2, h3, h4 {
@@ -23,15 +62,15 @@
   }
 
   ::selection {
-    background: rgba(59, 130, 246, 0.35);
-    color: #e7ecf5;
+    background: rgb(var(--signal-blue) / 0.25);
+    color: rgb(var(--mist-100));
   }
 
   a:focus-visible,
   button:focus-visible,
   input:focus-visible,
   textarea:focus-visible {
-    outline: 2px solid #22d3ee;
+    outline: 2px solid rgb(var(--signal-cyan));
     outline-offset: 3px;
   }
 
@@ -45,41 +84,84 @@
   }
 }
 
+@layer components {
+  .container-x {
+    @apply mx-auto w-full max-w-6xl px-5 sm:px-8;
+  }
+
+  .section-padding {
+    @apply py-24 md:py-32;
+  }
+
+  .card {
+    @apply relative rounded-2xl border border-white/[0.07] bg-gradient-to-b from-ink-900/90 to-ink-900/60 shadow-card backdrop-blur-xl;
+  }
+
+  .card-hover {
+    @apply transition-all duration-300 hover:-translate-y-1 hover:border-signal-blue/40 hover:from-ink-900 hover:shadow-glow-sm;
+  }
+
+  .chip {
+    @apply inline-flex items-center rounded-md border border-signal-blue/15 bg-signal-blue/[0.06] px-2.5 py-1 font-mono text-[11px] leading-none text-mist-300 transition-colors duration-200 hover:border-signal-blue/40 hover:bg-signal-blue/[0.12] hover:text-signal-blue;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-signal-gradient bg-[length:200%_auto] px-6 py-3 text-sm font-semibold text-ink-900 shadow-glow-sm transition-all duration-500 hover:-translate-y-0.5 hover:bg-right hover:shadow-glow;
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 rounded-full border border-white/15 bg-white/[0.03] px-6 py-3 text-sm font-medium text-mist-100 transition-colors duration-300 hover:border-signal-blue/40 hover:bg-white/[0.06];
+  }
+
+  .icon-btn {
+    @apply flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-white/[0.03] text-mist-200 transition-colors duration-300 hover:border-signal-blue/40 hover:text-signal-cyan;
+  }
+
+  .eyebrow {
+    @apply inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.25em] text-signal-cyan;
+  }
+
+  .field {
+    @apply w-full rounded-xl border border-white/10 bg-ink-900/80 px-4 py-3 text-mist-100 outline-none transition-colors placeholder:text-mist-500 focus:border-signal-cyan/60 focus:bg-ink-900;
+  }
+}
+
 @layer utilities {
-  /* Custom scrollbar */
   ::-webkit-scrollbar {
     width: 10px;
   }
   ::-webkit-scrollbar-track {
-    background: #05070d;
+    background: var(--scroll-track);
   }
   ::-webkit-scrollbar-thumb {
-    background: linear-gradient(180deg, #3b82f6, #22d3ee);
+    background: linear-gradient(180deg, rgb(var(--signal-blue)), rgb(var(--signal-cyan)));
     border-radius: 999px;
-    border: 2px solid #05070d;
+    border: 2px solid var(--scroll-track);
   }
   html {
     scrollbar-width: thin;
-    scrollbar-color: #3b82f6 #05070d;
-  }
-
-  .glass {
-    @apply bg-white/[0.03] backdrop-blur-xl border border-white/[0.07];
-  }
-
-  .glass-hover {
-    @apply hover:bg-white/[0.06] hover:border-signal-blue/40 transition-all duration-300;
+    scrollbar-color: rgb(var(--signal-blue)) var(--scroll-track);
   }
 
   .text-gradient {
-    @apply bg-clip-text text-transparent bg-signal-gradient;
+    @apply bg-clip-text text-transparent bg-signal-gradient bg-[length:200%_auto] animate-gradient-x;
   }
 
-  .section-padding {
-    @apply px-6 md:px-10 lg:px-20 py-24 md:py-32;
+  /* Hairline gradient border that fades in on hover (pair with `group`). */
+  .gradient-ring::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(135deg, rgb(var(--signal-blue) / 0.7), rgb(var(--signal-cyan) / 0.1) 40%, transparent 60%, rgb(var(--signal-violet) / 0.5));
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
   }
 
-  .eyebrow {
-    @apply font-mono text-xs uppercase tracking-[0.25em] text-signal-cyan;
+  .mask-fade-x {
+    mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
   }
 }

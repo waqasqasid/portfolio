@@ -18,33 +18,39 @@ function Counter({ value, suffix }) {
   }, [inView, value])
 
   return (
-    <span ref={ref} className="text-4xl md:text-5xl font-display font-semibold text-gradient">
+    <span ref={ref} className="font-display text-5xl font-semibold tracking-tight text-mist-100 md:text-6xl">
       {display}
-      {suffix}
+      <span className="text-gradient">{suffix}</span>
     </span>
   )
 }
 
 export default function Stats() {
   return (
-    <section className="section-padding !py-16">
-      <div className="mx-auto max-w-6xl grid grid-cols-2 gap-6 md:grid-cols-4">
-        {STATS.map((stat, i) => (
-          <motion.div
-            key={stat.label}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.4 }}
-            transition={{ duration: 0.5, delay: i * 0.08 }}
-            className="glass glass-hover rounded-2xl p-6 text-center"
-          >
-            <Counter value={stat.value} suffix={stat.suffix} />
-            <p className="mt-2 font-mono text-xs uppercase tracking-wider text-mist-400">
-              {stat.label}
-            </p>
-          </motion.div>
-        ))}
-      </div>
+    <section className="py-8">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.4 }}
+        transition={{ duration: 0.6 }}
+        className="container-x"
+      >
+        <div className="card grid grid-cols-2 !from-signal-blue/[0.08] !to-ink-900/80 divide-white/[0.07] overflow-hidden md:grid-cols-4 md:divide-x">
+          {STATS.map((stat, i) => (
+            <div
+              key={stat.label}
+              className={`px-6 py-8 md:py-10 ${i < 2 ? 'border-b border-white/[0.07] md:border-b-0' : ''} ${
+                i % 2 === 0 ? 'border-r border-white/[0.07] md:border-r-0' : ''
+              }`}
+            >
+              <Counter value={stat.value} suffix={stat.suffix} />
+              <p className="mt-3 font-mono text-[11px] uppercase leading-snug tracking-wider text-mist-400">
+                {stat.label}
+              </p>
+            </div>
+          ))}
+        </div>
+      </motion.div>
     </section>
   )
 }

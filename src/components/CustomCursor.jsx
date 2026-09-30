@@ -1,37 +1,43 @@
 import { useEffect, useState } from 'react'
-import { motion } from 'framer-motion'
+import { motion, useMotionValue, useSpring } from 'framer-motion'
 
 export default function CustomCursor() {
-  const [pos, setPos] = useState({ x: -100, y: -100 })
   const [isPointer, setIsPointer] = useState(false)
   const [enabled, setEnabled] = useState(false)
+  const x = useMotionValue(-100)
+  const y = useMotionValue(-100)
+  const springX = useSpring(x, { stiffness: 500, damping: 40, mass: 0.4 })
+  const springY = useSpring(y, { stiffness: 500, damping: 40, mass: 0.4 })
 
   useEffect(() => {
     const isFinePointer = window.matchMedia('(pointer: fine)').matches
-    setEnabled(isFinePointer)
-    if (!isFinePointer) return
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    const on = isFinePointer && !reduceMotion
+    setEnabled(on)
+    if (!on) return
 
     const move = (e) => {
-      setPos({ x: e.clientX, y: e.clientY })
-      const target = e.target
-      setIsPointer(
-        window.getComputedStyle(target).cursor === 'pointer' ||
-          target.closest('a, button') !== null
-      )
+      x.set(e.clientX - 16)
+      y.set(e.clientY - 16)
+      setIsPointer(e.target.closest('a, button, input, textarea, label') !== null)
     }
     window.addEventListener('mousemove', move)
     return () => window.removeEventListener('mousemove', move)
-  }, [])
+  }, [x, y])
 
   if (!enabled) return null
 
   return (
     <motion.div
-      className="pointer-events-none fixed top-0 left-0 z-[90] mix-blend-screen"
-      animate={{ x: pos.x - 12, y: pos.y - 12, scale: isPointer ? 1.8 : 1 }}
-      transition={{ type: 'spring', stiffness: 500, damping: 40, mass: 0.4 }}
+      className="pointer-events-none fixed left-0 top-0 z-[90]"
+      style={{ x: springX, y: springY }}
+      aria-hidden="true"
     >
-      <div className="h-6 w-6 rounded-full bg-signal-cyan/60 blur-[2px]" />
+      <motion.div
+        animate={{ scale: isPointer ? 1.5 : 1, opacity: isPointer ? 1 : 0.6 }}
+        transition={{ duration: 0.2 }}
+        className="h-8 w-8 rounded-full border border-signal-cyan/60 bg-signal-cyan/[0.06]"
+      />
     </motion.div>
   )
 }

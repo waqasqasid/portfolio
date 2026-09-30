@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { Send, Mail, Phone, MapPin, Github, Linkedin } from 'lucide-react'
+import { Send, Mail, Phone, MapPin, Github, Linkedin, Copy, Check } from 'lucide-react'
 import SectionHeading from '../components/SectionHeading'
 import { PROFILE } from '../constants/data'
 
@@ -8,7 +8,7 @@ const initialForm = { name: '', email: '', message: '' }
 
 export default function Contact({ onToast }) {
   const [form, setForm] = useState(initialForm)
-  const [submitting, setSubmitting] = useState(false)
+  const [copied, setCopied] = useState(false)
 
   const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value })
 
@@ -18,124 +18,159 @@ export default function Contact({ onToast }) {
       onToast({ type: 'error', message: 'Please fill in every field.' })
       return
     }
-    setSubmitting(true)
     // No backend is wired up yet — this opens a pre-filled email as the delivery method.
     const subject = encodeURIComponent(`Portfolio contact from ${form.name}`)
     const body = encodeURIComponent(`${form.message}\n\n— ${form.name} (${form.email})`)
     window.location.href = `mailto:${PROFILE.email}?subject=${subject}&body=${body}`
     onToast({ type: 'success', message: 'Opening your email client…' })
     setForm(initialForm)
-    setSubmitting(false)
   }
+
+  const copyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText(PROFILE.email)
+      setCopied(true)
+      onToast({ type: 'success', message: 'Email copied to clipboard' })
+      setTimeout(() => setCopied(false), 2000)
+    } catch {
+      onToast({ type: 'error', message: 'Could not copy — please select it manually.' })
+    }
+  }
+
+  const contacts = [
+    { icon: Phone, label: 'Phone', value: PROFILE.phoneDisplay, href: `tel:${PROFILE.phone}` },
+    { icon: MapPin, label: 'Location', value: PROFILE.location, href: null },
+  ]
 
   return (
     <section id="contact" className="section-padding">
-      <div className="mx-auto max-w-6xl">
+      <div className="container-x">
         <SectionHeading
-          eyebrow="~/contact"
+          index="05"
+          eyebrow="contact"
           title="Let's talk infrastructure"
           description="Open to DevOps, Cloud, and Linux administration roles — reach out and I'll get back to you."
         />
 
-        <div className="grid grid-cols-1 gap-10 lg:grid-cols-[0.8fr_1.2fr]">
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, amount: 0.4 }}
-            transition={{ duration: 0.6 }}
-            className="space-y-4"
-          >
-            {[
-              { icon: Mail, label: PROFILE.email, href: `mailto:${PROFILE.email}` },
-              { icon: Phone, label: PROFILE.phone, href: `tel:${PROFILE.phone}` },
-              { icon: MapPin, label: PROFILE.location, href: null },
-            ].map((item) => (
-              <div key={item.label} className="glass flex items-center gap-4 rounded-xl p-4">
-                <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-signal-blue/10 text-signal-cyan">
-                  <item.icon className="h-4 w-4" />
-                </span>
-                {item.href ? (
-                  <a href={item.href} className="font-mono text-sm text-mist-200 hover:text-signal-cyan">
-                    {item.label}
-                  </a>
-                ) : (
-                  <span className="font-mono text-sm text-mist-200">{item.label}</span>
-                )}
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.6 }}
+          className="card gradient-ring grid grid-cols-1 overflow-hidden lg:grid-cols-[0.9fr_1.1fr]"
+        >
+          {/* Info panel */}
+          <div className="relative flex flex-col justify-between gap-10 border-b border-white/[0.07] bg-gradient-to-br from-signal-blue/[0.12] via-transparent to-transparent p-8 md:p-10 lg:border-b-0 lg:border-r">
+            <div>
+              <p className="font-mono text-xs uppercase tracking-wider text-mist-400">Email me at</p>
+              <div className="mt-3 flex flex-wrap items-center gap-3">
+                <a
+                  href={`mailto:${PROFILE.email}`}
+                  className="break-all font-display text-xl font-semibold text-mist-100 transition-colors hover:text-signal-cyan md:text-2xl"
+                >
+                  {PROFILE.email}
+                </a>
+                <button
+                  type="button"
+                  onClick={copyEmail}
+                  aria-label="Copy email address"
+                  className="flex h-9 w-9 items-center justify-center rounded-lg border border-white/10 text-mist-400 transition-colors hover:border-signal-cyan/40 hover:text-signal-cyan"
+                >
+                  {copied ? <Check className="h-4 w-4 text-signal-mint" /> : <Copy className="h-4 w-4" />}
+                </button>
               </div>
-            ))}
 
-            <div className="flex gap-3 pt-2">
-              <a
-                href={PROFILE.github}
-                target="_blank"
-                rel="noreferrer"
-                className="flex h-11 w-11 items-center justify-center rounded-full border border-white/15 glass-hover text-mist-100"
-              >
+              <ul className="mt-10 space-y-5">
+                {contacts.map(({ icon: Icon, label, value, href }) => (
+                  <li key={label} className="flex items-center gap-4">
+                    <span className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/[0.03] text-signal-cyan">
+                      <Icon className="h-4 w-4" />
+                    </span>
+                    <div>
+                      <p className="font-mono text-[11px] uppercase tracking-wider text-mist-500">{label}</p>
+                      {href ? (
+                        <a href={href} className="text-mist-200 transition-colors hover:text-signal-cyan">
+                          {value}
+                        </a>
+                      ) : (
+                        <p className="text-mist-200">{value}</p>
+                      )}
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div className="flex gap-3">
+              <a href={PROFILE.github} target="_blank" rel="noreferrer" aria-label="GitHub" className="icon-btn">
                 <Github className="h-4 w-4" />
               </a>
-              <a
-                href={PROFILE.linkedin}
-                target="_blank"
-                rel="noreferrer"
-                className="flex h-11 w-11 items-center justify-center rounded-full border border-white/15 glass-hover text-mist-100"
-              >
+              <a href={PROFILE.linkedin} target="_blank" rel="noreferrer" aria-label="LinkedIn" className="icon-btn">
                 <Linkedin className="h-4 w-4" />
               </a>
+              <a href={`mailto:${PROFILE.email}`} aria-label="Email" className="icon-btn">
+                <Mail className="h-4 w-4" />
+              </a>
             </div>
-          </motion.div>
+          </div>
 
-          <motion.form
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, amount: 0.4 }}
-            transition={{ duration: 0.6 }}
-            onSubmit={handleSubmit}
-            className="glass space-y-5 rounded-2xl p-8"
-          >
-            <div>
-              <label className="mb-2 block font-mono text-xs text-mist-400">name</label>
-              <input
-                type="text"
-                name="name"
-                value={form.name}
-                onChange={handleChange}
-                placeholder="Your name"
-                className="w-full rounded-lg border border-white/10 bg-white/[0.02] px-4 py-3 text-mist-100 placeholder:text-mist-400/60 focus:border-signal-cyan/60 outline-none transition-colors"
-              />
+          {/* Form */}
+          <form onSubmit={handleSubmit} className="space-y-5 p-8 md:p-10" noValidate>
+            <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+              <div>
+                <label htmlFor="contact-name" className="mb-2 block font-mono text-xs text-mist-400">
+                  name
+                </label>
+                <input
+                  id="contact-name"
+                  type="text"
+                  name="name"
+                  autoComplete="name"
+                  value={form.name}
+                  onChange={handleChange}
+                  placeholder="Your name"
+                  className="field"
+                />
+              </div>
+              <div>
+                <label htmlFor="contact-email" className="mb-2 block font-mono text-xs text-mist-400">
+                  email
+                </label>
+                <input
+                  id="contact-email"
+                  type="email"
+                  name="email"
+                  autoComplete="email"
+                  value={form.email}
+                  onChange={handleChange}
+                  placeholder="you@example.com"
+                  className="field"
+                />
+              </div>
             </div>
             <div>
-              <label className="mb-2 block font-mono text-xs text-mist-400">email</label>
-              <input
-                type="email"
-                name="email"
-                value={form.email}
-                onChange={handleChange}
-                placeholder="you@example.com"
-                className="w-full rounded-lg border border-white/10 bg-white/[0.02] px-4 py-3 text-mist-100 placeholder:text-mist-400/60 focus:border-signal-cyan/60 outline-none transition-colors"
-              />
-            </div>
-            <div>
-              <label className="mb-2 block font-mono text-xs text-mist-400">message</label>
+              <label htmlFor="contact-message" className="mb-2 block font-mono text-xs text-mist-400">
+                message
+              </label>
               <textarea
+                id="contact-message"
                 name="message"
-                rows={5}
+                rows={6}
                 value={form.message}
                 onChange={handleChange}
                 placeholder="Tell me about the role or project…"
-                className="w-full resize-none rounded-lg border border-white/10 bg-white/[0.02] px-4 py-3 text-mist-100 placeholder:text-mist-400/60 focus:border-signal-cyan/60 outline-none transition-colors"
+                className="field resize-none"
               />
             </div>
             <motion.button
-              whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               type="submit"
-              disabled={submitting}
-              className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-signal-gradient px-6 py-3 font-medium text-ink-950 shadow-glow-sm disabled:opacity-60"
+              className="btn-primary w-full py-3.5"
             >
               <Send className="h-4 w-4" /> Send Message
             </motion.button>
-          </motion.form>
-        </div>
+          </form>
+        </motion.div>
       </div>
     </section>
   )

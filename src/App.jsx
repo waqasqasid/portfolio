@@ -5,9 +5,11 @@ import CustomCursor from './components/CustomCursor'
 import AmbientBackground from './components/AmbientBackground'
 import Navbar from './components/Navbar'
 import ScrollToTop from './components/ScrollToTop'
+import ScrollProgress from './components/ScrollProgress'
 import Toast from './components/Toast'
 import Hero from './sections/Hero'
 import About from './sections/About'
+import TechMarquee from './sections/TechMarquee'
 import Stats from './sections/Stats'
 import Skills from './sections/Skills'
 import Projects from './sections/Projects'
@@ -20,7 +22,7 @@ export default function App() {
   const [toast, setToast] = useState(null)
 
   useEffect(() => {
-    const timer = setTimeout(() => setIsLoading(false), 1400)
+    const timer = setTimeout(() => setIsLoading(false), 900)
     return () => clearTimeout(timer)
   }, [])
 
@@ -36,6 +38,7 @@ export default function App() {
       <CustomCursor />
       <AmbientBackground />
       <Toast toast={toast} />
+      <ScrollProgress />
       <Navbar />
 
       <motion.main
@@ -44,8 +47,9 @@ export default function App() {
         transition={{ duration: 0.6, delay: 0.1 }}
       >
         <Hero />
-        <About />
+        <TechMarquee />
         <Stats />
+        <About />
         <Skills />
         <Projects />
         <Experience />
