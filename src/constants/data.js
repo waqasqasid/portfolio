@@ -130,7 +130,7 @@ export const PROJECTS = [
     description:
       'Containerized a multi-service application with Docker, writing custom Dockerfiles to keep development and production environments consistent.',
     stack: ['Docker', 'Linux', 'Bash'],
-    github: 'https://github.com/waqasalishah',
+    github: PROFILE.github,
     demo: '',
   },
   {
@@ -138,7 +138,7 @@ export const PROJECTS = [
     description:
       'Provisioned and configured EC2 instances on AWS, including security group rules and NACLs to control inbound/outbound traffic.',
     stack: ['AWS EC2', 'Security Groups', 'NACLs'],
-    github: 'https://github.com/waqasalishah',
+    github: PROFILE.github,
     demo: '',
   },
   {
@@ -146,7 +146,7 @@ export const PROJECTS = [
     description:
       'Built and pushed container images to Amazon ECR, then deployed them to an ECS-managed environment for a repeatable release flow.',
     stack: ['ECR', 'ECS', 'Docker'],
-    github: 'https://github.com/waqasalishah',
+    github: PROFILE.github,
     demo: '',
   },
   {
@@ -154,7 +154,7 @@ export const PROJECTS = [
     description:
       'Administered Ubuntu, AlmaLinux, and CentOS systems, handling user management, permissions, and day-to-day command-line operations.',
     stack: ['Ubuntu', 'AlmaLinux', 'CentOS'],
-    github: 'https://github.com/waqasalishah',
+    github: PROFILE.github,
     demo: '',
   },
   {
@@ -162,7 +162,7 @@ export const PROJECTS = [
     description:
       'Configured Samba servers to enable cross-platform file sharing and printing services across mixed operating system environments.',
     stack: ['Samba', 'Linux', 'Networking'],
-    github: 'https://github.com/waqasalishah',
+    github: PROFILE.github,
     demo: '',
   },
   {
@@ -170,7 +170,7 @@ export const PROJECTS = [
     description:
       'Built an isolated virtual lab using VMware and VirtualBox to safely practice Linux administration and networking scenarios.',
     stack: ['VMware', 'VirtualBox', 'Virtualization'],
-    github: 'https://github.com/waqasalishah',
+    github: PROFILE.github,
     demo: '',
   },
   {
@@ -178,7 +178,7 @@ export const PROJECTS = [
     description:
       'Explored CI/CD concepts end-to-end while working as a System Administrator, mapping out an automated build-to-deploy pipeline for a sample app.',
     stack: ['CI/CD', 'Automation', 'Docker'],
-    github: 'https://github.com/waqasalishah',
+    github: PROFILE.github,
     demo: '',
   },
   {
@@ -186,7 +186,7 @@ export const PROJECTS = [
     description:
       'Practiced deploying containerized workloads to the cloud, tying together EC2 provisioning, image builds, and network security in one flow.',
     stack: ['AWS', 'Docker', 'EC2'],
-    github: 'https://github.com/waqasalishah',
+    github: PROFILE.github,
     demo: '',
   },
 ]

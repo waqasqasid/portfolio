@@ -2,7 +2,7 @@
 
 A production-ready, fully responsive personal portfolio built with **React (Vite)**, **Tailwind CSS**, and **Framer Motion**. Dark theme with blue gradient accents, terminal-inspired signature interactions, and content pulled directly from a real resume.
 
-**Live site:** `https://waqasalishah.github.io/portfolio/` (update after deployment)
+**Live site:** https://waqas.site.je/ · https://waqasqasid.github.io/portfolio/
 
 ---
 
