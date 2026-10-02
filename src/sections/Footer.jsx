@@ -3,10 +3,10 @@ import { NAV_LINKS, PROFILE } from '../constants/data'
 
 export default function Footer() {
   return (
-    <footer className="border-t border-white/[0.06] py-12">
-      <div className="container-x flex flex-col gap-10 md:flex-row md:items-center md:justify-between">
+    <footer className="border-t border-white/[0.06] py-10 md:py-12">
+      <div className="container-x flex flex-col items-center gap-6 text-center md:flex-row md:items-center md:justify-between md:gap-10 md:text-left">
         <div>
-          <div className="flex items-center gap-2 font-mono text-sm font-semibold text-mist-100">
+          <div className="flex items-center justify-center gap-2 font-mono text-sm font-semibold text-mist-100 md:justify-start">
             <span className="flex h-7 w-7 items-center justify-center rounded-md bg-signal-gradient">
               <SquareTerminal className="h-3.5 w-3.5 text-ink-950" />
             </span>
@@ -17,7 +17,7 @@ export default function Footer() {
           </p>
         </div>
 
-        <ul className="flex flex-wrap gap-x-6 gap-y-2 font-mono text-xs text-mist-400">
+        <ul className="flex flex-wrap justify-center gap-x-5 gap-y-2 font-mono text-xs md:justify-start md:gap-x-6 text-mist-400">
           {NAV_LINKS.map((link) => (
             <li key={link.href}>
               <a href={link.href} className="transition-colors hover:text-signal-cyan">

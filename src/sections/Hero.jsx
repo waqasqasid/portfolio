@@ -29,7 +29,7 @@ function TerminalLine({ line, showOutput, onDone }) {
   }, [line])
 
   return (
-    <div className="font-mono text-[13px] leading-relaxed">
+    <div className="font-mono text-[12px] leading-relaxed sm:text-[13px]">
       <span className="text-signal-mint">➜</span>{' '}
       <span className="text-signal-cyan">~</span>{' '}
       <span className="text-mist-100">{typed}</span>
@@ -63,7 +63,7 @@ function Terminal() {
         <span className="h-2.5 w-2.5 rounded-full bg-[#28c840]" />
         <span className="ml-2 font-mono text-[11px] text-mist-500">bash — waqas@devops</span>
       </div>
-      <div className="min-h-[168px] space-y-3 p-5">
+      <div className="min-h-[168px] space-y-3 p-4 sm:p-5">
         {COMMANDS.slice(0, step + 1).map((line, idx) => (
           <TerminalLine
             key={line.cmd}
@@ -85,6 +85,7 @@ function Terminal() {
 }
 
 const WORDS = ['reliable', 'scalable', 'secure', 'automated']
+const LONGEST_WORD = WORDS.reduce((a, b) => (b.length > a.length ? b : a))
 
 function RotatingWord() {
   const [index, setIndex] = useState(0)
@@ -95,7 +96,11 @@ function RotatingWord() {
   }, [])
 
   return (
-    <span className="relative inline-flex overflow-hidden pb-2 align-bottom">
+    // Invisible longest word reserves the width so the line never collapses between words.
+    <span className="relative inline-grid overflow-hidden pb-2 align-bottom">
+      <span className="invisible col-start-1 row-start-1" aria-hidden="true">
+        {LONGEST_WORD}
+      </span>
       <AnimatePresence mode="wait">
         <motion.span
           key={WORDS[index]}
@@ -103,7 +108,7 @@ function RotatingWord() {
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: '-100%', opacity: 0 }}
           transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-          className="text-gradient"
+          className="text-gradient col-start-1 row-start-1"
         >
           {WORDS[index]}
         </motion.span>
@@ -149,8 +154,8 @@ export default function Hero() {
   const resumeHref = `${import.meta.env.BASE_URL}${PROFILE.resumeFile.replace(/^\//, '')}`
 
   return (
-    <section id="hero" className="relative flex overflow-x-clip min-h-screen items-center pb-20 pt-32 md:pt-36">
-      <div className="container-x grid grid-cols-1 items-center gap-16 lg:grid-cols-[1.1fr_0.9fr]">
+    <section id="hero" className="relative flex overflow-x-clip min-h-[100svh] items-center pb-16 pt-28 md:pb-20 md:pt-36">
+      <div className="container-x grid grid-cols-1 items-center gap-12 md:gap-16 lg:grid-cols-[1.1fr_0.9fr]">
         {/* Left: copy */}
         <div>
           <motion.div {...fadeUp(0)}>
@@ -163,28 +168,28 @@ export default function Hero() {
             </span>
           </motion.div>
 
-          <motion.p {...fadeUp(0.08)} className="mt-8 font-mono text-sm text-mist-400">
+          <motion.p {...fadeUp(0.08)} className="mt-6 font-mono text-sm text-mist-400 md:mt-8">
             Hi, I&apos;m <span className="text-mist-100">{PROFILE.name}</span> —
           </motion.p>
 
           <motion.h1
             {...fadeUp(0.14)}
-            className="mt-3 text-[2.6rem] font-semibold leading-[1.05] tracking-tight text-mist-100 sm:text-6xl lg:text-7xl"
+            className="mt-3 text-[2.5rem] font-semibold leading-[1.05] tracking-tight text-mist-100 sm:text-6xl lg:text-7xl"
           >
             I build <RotatingWord />
             <br />
             infrastructure.
           </motion.h1>
 
-          <motion.p {...fadeUp(0.22)} className="mt-7 max-w-xl text-base leading-relaxed text-mist-400 md:text-lg">
+          <motion.p {...fadeUp(0.22)} className="mt-5 max-w-xl text-[15px] leading-relaxed sm:text-base md:mt-7 text-mist-400 md:text-lg">
             {PROFILE.summary}
           </motion.p>
 
-          <motion.div {...fadeUp(0.3)} className="mt-10 flex flex-wrap items-center gap-3">
-            <a href={resumeHref} download className="btn-primary">
+          <motion.div {...fadeUp(0.3)} className="mt-8 flex flex-wrap items-center gap-3 md:mt-10">
+            <a href={resumeHref} download className="btn-primary w-full sm:w-auto">
               <Download className="h-4 w-4" /> Download Resume
             </a>
-            <a href={PROFILE.github} target="_blank" rel="noreferrer" className="btn-ghost">
+            <a href={PROFILE.github} target="_blank" rel="noreferrer" className="btn-ghost flex-1 sm:flex-none">
               <Github className="h-4 w-4" /> GitHub
             </a>
             <a href={PROFILE.linkedin} target="_blank" rel="noreferrer" aria-label="LinkedIn" className="icon-btn">
@@ -201,7 +206,7 @@ export default function Hero() {
           initial={{ opacity: 0, scale: 0.95, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           transition={{ duration: 0.9, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-          className="relative mx-auto w-full max-w-md lg:max-w-none"
+          className="relative mx-auto w-full max-w-[340px] sm:max-w-md lg:max-w-none"
         >
           <div className="absolute -inset-6 rounded-[2.5rem] bg-signal-blue/15 blur-3xl" />
 
@@ -228,7 +233,7 @@ export default function Hero() {
             </div>
           </div>
 
-          <div className="relative -mt-24 w-[88%] animate-float sm:-mt-28">
+          <div className="relative -mt-20 w-[92%] animate-float sm:-mt-28 sm:w-[88%]">
             <Terminal />
           </div>
         </motion.div>

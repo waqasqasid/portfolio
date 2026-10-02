@@ -11,7 +11,7 @@ const FOCUS = [
 
 export default function About() {
   return (
-    <section id="about" className="pb-24 pt-20 md:pb-32 md:pt-28">
+    <section id="about" className="pb-16 pt-14 sm:pb-24 sm:pt-20 md:pb-32 md:pt-28">
       <div className="container-x">
         <SectionHeading
           index="01"
@@ -20,22 +20,22 @@ export default function About() {
           description="A short background on how I got here, and what I'm building toward."
         />
 
-        <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1.25fr_1fr]">
+        <div className="grid grid-cols-1 gap-5 sm:gap-8 lg:grid-cols-[1.25fr_1fr]">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.6 }}
-            className="card p-8 md:p-10"
+            className="card p-6 sm:p-8 md:p-10"
           >
-            <p className="text-lg leading-relaxed text-mist-300">
+            <p className="text-base leading-relaxed text-mist-300 sm:text-lg">
               I started out with a background in DevOps engineering, spending One-Year
               doing hands-on diagnostics and system troubleshooting — work that trained me to
               think in root causes, not symptoms. That instinct carried directly into DevOps:
               I care about <span className="font-medium text-mist-100">why</span> a system fails,
               not just restarting it.
             </p>
-            <p className="mt-5 leading-relaxed text-mist-400">
+            <p className="mt-5 text-[15px] leading-relaxed text-mist-400 sm:text-base">
               Since then I&apos;ve been deliberately building toward infrastructure and cloud work —
               administering Linux systems day to day, containerizing applications with Docker,
               and provisioning AWS infrastructure (EC2, ECS, ECR, VPC, S3, Auto Scaling and ELB) with
@@ -44,11 +44,11 @@ export default function About() {
               automation.
             </p>
 
-            <div className="mt-8 flex flex-wrap gap-2.5 border-t border-white/[0.07] pt-8">
+            <div className="mt-6 flex flex-wrap gap-2 border-t border-white/[0.07] pt-6 sm:mt-8 sm:gap-2.5 sm:pt-8">
               {FOCUS.map(({ icon: Icon, label }) => (
                 <span
                   key={label}
-                  className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-3.5 py-1.5 text-sm text-mist-200"
+                  className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-3 py-1.5 text-[13px] text-mist-200 sm:px-3.5 sm:text-sm"
                 >
                   <Icon className="h-3.5 w-3.5 text-signal-cyan" />
                   {label}
@@ -66,7 +66,7 @@ export default function About() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="card p-8"
+            className="card p-6 sm:p-8"
           >
             <h3 className="flex items-center gap-2 font-mono text-sm text-signal-cyan">
               <GraduationCap className="h-4 w-4" /> education.log

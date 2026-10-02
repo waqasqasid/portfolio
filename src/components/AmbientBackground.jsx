@@ -32,9 +32,9 @@ export default function AmbientBackground() {
         }}
       />
 
-      <div className="absolute left-[-8%] top-[8%] h-[460px] w-[460px] animate-blob rounded-full bg-signal-blue/[0.16] blur-[120px]" />
-      <div className="absolute right-[-10%] top-[40%] h-[420px] w-[420px] animate-blob rounded-full bg-signal-cyan/[0.14] blur-[120px] [animation-delay:4s]" />
-      <div className="absolute bottom-[-10%] left-[20%] h-[420px] w-[420px] animate-blob rounded-full bg-signal-violet/[0.12] blur-[120px] [animation-delay:9s]" />
+      <div className="absolute left-[-8%] top-[8%] h-[280px] w-[280px] animate-blob sm:h-[460px] sm:w-[460px] rounded-full bg-signal-blue/[0.16] blur-[120px]" />
+      <div className="absolute right-[-10%] top-[40%] h-[260px] w-[260px] animate-blob sm:h-[420px] sm:w-[420px] rounded-full bg-signal-cyan/[0.14] blur-[120px] [animation-delay:4s]" />
+      <div className="absolute bottom-[-10%] left-[20%] h-[260px] w-[260px] animate-blob sm:h-[420px] sm:w-[420px] rounded-full bg-signal-violet/[0.12] blur-[120px] [animation-delay:9s]" />
 
       {/* Rising particles */}
       {PARTICLES.map((p, i) => (

@@ -18,7 +18,7 @@ function Counter({ value, suffix }) {
   }, [inView, value])
 
   return (
-    <span ref={ref} className="font-display text-5xl font-semibold tracking-tight text-mist-100 md:text-6xl">
+    <span ref={ref} className="font-display text-4xl font-semibold tracking-tight text-mist-100 sm:text-5xl md:text-6xl">
       {display}
       <span className="text-gradient">{suffix}</span>
     </span>
@@ -39,12 +39,12 @@ export default function Stats() {
           {STATS.map((stat, i) => (
             <div
               key={stat.label}
-              className={`px-6 py-8 md:py-10 ${i < 2 ? 'border-b border-white/[0.07] md:border-b-0' : ''} ${
+              className={`px-4 py-6 sm:px-6 sm:py-8 md:py-10 ${i < 2 ? 'border-b border-white/[0.07] md:border-b-0' : ''} ${
                 i % 2 === 0 ? 'border-r border-white/[0.07] md:border-r-0' : ''
               }`}
             >
               <Counter value={stat.value} suffix={stat.suffix} />
-              <p className="mt-3 font-mono text-[11px] uppercase leading-snug tracking-wider text-mist-400">
+              <p className="mt-2 font-mono text-[10px] uppercase sm:mt-3 sm:text-[11px] leading-snug tracking-wider text-mist-400">
                 {stat.label}
               </p>
             </div>

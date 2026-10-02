@@ -60,13 +60,13 @@ export default function Contact({ onToast }) {
           className="card gradient-ring grid grid-cols-1 overflow-hidden lg:grid-cols-[0.9fr_1.1fr]"
         >
           {/* Info panel */}
-          <div className="relative flex flex-col justify-between gap-10 border-b border-white/[0.07] bg-gradient-to-br from-signal-blue/[0.12] via-transparent to-transparent p-8 md:p-10 lg:border-b-0 lg:border-r">
+          <div className="relative flex flex-col justify-between gap-8 border-b border-white/[0.07] bg-gradient-to-br from-signal-blue/[0.12] via-transparent to-transparent p-6 sm:p-8 md:gap-10 md:p-10 lg:border-b-0 lg:border-r">
             <div>
               <p className="font-mono text-xs uppercase tracking-wider text-mist-400">Email me at</p>
               <div className="mt-3 flex flex-wrap items-center gap-3">
                 <a
                   href={`mailto:${PROFILE.email}`}
-                  className="break-all font-display text-xl font-semibold text-mist-100 transition-colors hover:text-signal-cyan md:text-2xl"
+                  className="break-all font-display text-lg font-semibold sm:text-xl text-mist-100 transition-colors hover:text-signal-cyan md:text-2xl"
                 >
                   {PROFILE.email}
                 </a>
@@ -80,7 +80,7 @@ export default function Contact({ onToast }) {
                 </button>
               </div>
 
-              <ul className="mt-10 space-y-5">
+              <ul className="mt-8 space-y-5 md:mt-10">
                 {contacts.map(({ icon: Icon, label, value, href }) => (
                   <li key={label} className="flex items-center gap-4">
                     <span className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/[0.03] text-signal-cyan">
@@ -115,7 +115,7 @@ export default function Contact({ onToast }) {
           </div>
 
           {/* Form */}
-          <form onSubmit={handleSubmit} className="space-y-5 p-8 md:p-10" noValidate>
+          <form onSubmit={handleSubmit} className="space-y-5 p-6 sm:p-8 md:p-10" noValidate>
             <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
               <div>
                 <label htmlFor="contact-name" className="mb-2 block font-mono text-xs text-mist-400">
@@ -155,7 +155,7 @@ export default function Contact({ onToast }) {
               <textarea
                 id="contact-message"
                 name="message"
-                rows={6}
+                rows={5}
                 value={form.message}
                 onChange={handleChange}
                 placeholder="Tell me about the role or project…"

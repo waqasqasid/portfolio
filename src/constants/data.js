@@ -9,7 +9,7 @@ export const PROFILE = {
   github: 'https://github.com/waqasqasid',
   linkedin: 'https://www.linkedin.com/in/waqasqasid/',
   summary:
-    "DevOps enthusiast with a background in mechanical engineering and 6 months of hands-on technical experience in diagnostics and system troubleshooting. Currently building expertise in cloud computing, CI/CD pipelines, and automation to deliver efficient, reliable deployment solutions.",
+    "DevOps Engineer with hands-on experience in cloud infrastructure, CI/CD pipelines, automation, system monitoring, and troubleshooting. Skilled in streamlining deployment processes, improving system reliability, and implementing efficient DevOps practices. Passionate about building scalable, automated, and reliable infrastructure while continuously improving cloud and DevOps solutions.",
   resumeFile: '/DevOps-JE.pdf',
 }
 

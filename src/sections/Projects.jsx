@@ -28,7 +28,7 @@ export default function Projects() {
           description="Practical projects I've built to apply DevOps concepts — containerization, cloud infrastructure, networking, and automation."
         />
 
-        <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+        <div className="grid grid-cols-1 gap-4 sm:gap-5 md:grid-cols-2">
           {PROJECTS.map((project, i) => {
             const Icon = ICONS[i % ICONS.length]
             return (
@@ -39,7 +39,7 @@ export default function Projects() {
                 viewport={{ once: true, amount: 0.25 }}
                 transition={{ duration: 0.5, delay: (i % 2) * 0.1 }}
                 whileHover={{ y: -4 }}
-                className="card card-hover group flex flex-col p-7"
+                className="card card-hover group flex flex-col p-5 sm:p-7"
               >
                 <div className="flex items-start justify-between gap-4">
                   <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-white/10 bg-white/[0.04] text-mist-200 transition-colors duration-300 group-hover:border-signal-cyan/40 group-hover:text-signal-cyan">
@@ -50,12 +50,12 @@ export default function Projects() {
                   </span>
                 </div>
 
-                <h3 className="mt-6 text-xl font-semibold text-mist-100">{project.title}</h3>
-                <p className="mt-3 flex-1 text-[15px] leading-relaxed text-mist-400">
+                <h3 className="mt-4 text-lg font-semibold text-mist-100 sm:mt-6 sm:text-xl">{project.title}</h3>
+                <p className="mt-2 flex-1 text-[14px] leading-relaxed sm:mt-3 sm:text-[15px] text-mist-400">
                   {project.description}
                 </p>
 
-                <div className="mt-6 flex flex-wrap gap-2">
+                <div className="mt-5 flex flex-wrap gap-2 sm:mt-6">
                   {project.stack.map((tech) => (
                     <span key={tech} className="chip">
                       {tech}
@@ -63,7 +63,7 @@ export default function Projects() {
                   ))}
                 </div>
 
-                <div className="mt-6 flex items-center justify-between border-t border-white/[0.07] pt-5">
+                <div className="mt-5 flex items-center justify-between border-t border-white/[0.07] pt-4 sm:mt-6 sm:pt-5">
                   <a
                     href={project.github}
                     target="_blank"

@@ -8,7 +8,7 @@ export default function SectionHeading({ index, eyebrow, title, description, ali
       whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
       viewport={{ once: true, amount: 0.4 }}
       transition={{ duration: 0.6, ease: 'easeOut' }}
-      className={`mb-14 max-w-2xl ${isCenter ? 'mx-auto text-center' : ''}`}
+      className={`mb-10 max-w-2xl md:mb-14 ${isCenter ? 'mx-auto text-center' : ''}`}
     >
       <span className="eyebrow">
         {index && <span className="text-mist-500">{index}</span>}
@@ -21,11 +21,11 @@ export default function SectionHeading({ index, eyebrow, title, description, ali
         />
         {eyebrow}
       </span>
-      <h2 className="mt-4 text-3xl font-semibold tracking-tight text-mist-100 md:text-5xl">
+      <h2 className="mt-4 text-[1.75rem] font-semibold leading-tight tracking-tight text-mist-100 sm:text-3xl md:text-5xl">
         {title}
       </h2>
       {description && (
-        <p className="mt-5 text-base leading-relaxed text-mist-400 md:text-lg">{description}</p>
+        <p className="mt-4 text-[15px] leading-relaxed text-mist-400 sm:text-base md:mt-5 md:text-lg">{description}</p>
       )}
     </motion.div>
   )

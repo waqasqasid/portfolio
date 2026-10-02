@@ -37,7 +37,7 @@ export default function Skills() {
           description="Grouped by domain — the tools and platforms I use to keep systems running and deployments predictable."
         />
 
-        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3">
           {ordered.map((group, i) => {
             const Icon = ICONS[group.icon] ?? Terminal
             return (
@@ -47,12 +47,12 @@ export default function Skills() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.3 }}
                 transition={{ duration: 0.5, delay: (i % 3) * 0.08 }}
-                className={`card card-hover group overflow-hidden p-7 ${group.span}`}
+                className={`card card-hover group overflow-hidden p-5 sm:p-7 ${group.span}`}
               >
                 <div className="pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full bg-signal-blue/10 blur-3xl transition-colors duration-500 group-hover:bg-signal-cyan/20" />
 
                 <div className="relative flex items-start justify-between">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-xl border border-signal-blue/30 bg-gradient-to-br from-signal-blue/20 to-signal-cyan/5 transition-transform duration-500 group-hover:-rotate-6 group-hover:scale-110">
+                  <div className="flex h-11 w-11 items-center sm:h-12 sm:w-12 justify-center rounded-xl border border-signal-blue/30 bg-gradient-to-br from-signal-blue/20 to-signal-cyan/5 transition-transform duration-500 group-hover:-rotate-6 group-hover:scale-110">
                     <Icon className="h-5 w-5 text-signal-cyan" />
                   </div>
                   <span className="font-mono text-[11px] text-mist-500">
@@ -60,7 +60,7 @@ export default function Skills() {
                   </span>
                 </div>
 
-                <h3 className="relative mt-6 text-xl font-semibold text-mist-100">{group.category}</h3>
+                <h3 className="relative mt-4 text-lg font-semibold sm:mt-6 sm:text-xl text-mist-100">{group.category}</h3>
                 <ul className="relative mt-4 flex flex-wrap gap-2">
                   {group.skills.map((skill) => (
                     <li key={skill} className="chip">
