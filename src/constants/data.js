@@ -63,11 +63,11 @@ export const SKILL_GROUPS = [
 
 export const EXPERIENCE = [
   {
-    role: 'Junior DevOps Engineer',
+    role: 'DevOps Engineer',
     company: 'SNJ Global',
     period: '2026 – Present',
     points: [
-      'Working as a Junior DevOps Engineer, supporting development, deployment, and infrastructure operations.',
+      'Working as a DevOps Engineer, supporting development, deployment, and infrastructure operations.',
       'Managing and maintaining CI/CD workflows to streamline application build, testing, and deployment processes.',
       'Working with Linux environments for server management, configuration, and troubleshooting.',
       'Using Git and GitHub for source control and collaborative development workflows.',
