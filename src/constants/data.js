@@ -75,6 +75,9 @@ export const EXPERIENCE = [
       'Assisting with cloud infrastructure, deployment automation, monitoring, and system maintenance.',
       'Troubleshooting deployment, configuration, and environment-related issues in collaboration with development teams.',
       'Creating scripts and automations to reduce repetitive operational tasks and improve workflow efficiency.',
+      'Automated routine operational tasks using Bash/Python to improve efficiency and reduce manual intervention.',
+      'Managed Git repositories, branching strategies, code integration, and deployment workflows across development environments.',
+      'Applied security best practices including IAM, access control, secrets management, and secure infrastructure configurations.',
     ],
   },
   {
