@@ -17,7 +17,7 @@ export default function About() {
           index="01"
           eyebrow="about"
           title="From diagnostics to deployments"
-          description="A short background on how I got here, and what I'm building toward."
+          description="Who I am, how I got here, and the kind of infrastructure I like to build."
         />
 
         <div className="grid grid-cols-1 gap-5 sm:gap-8 lg:grid-cols-[1.25fr_1fr]">
@@ -29,19 +29,20 @@ export default function About() {
             className="card p-6 sm:p-8 md:p-10"
           >
             <p className="text-base leading-relaxed text-mist-300 sm:text-lg">
-              I started out with a background in DevOps engineering, spending One-Year
-              doing hands-on diagnostics and system troubleshooting — work that trained me to
-              think in root causes, not symptoms. That instinct carried directly into DevOps:
-              I care about <span className="font-medium text-mist-100">why</span> a system fails,
-              not just restarting it.
+              I&apos;m a DevOps Engineer at SNJ Global, working across cloud infrastructure,
+              CI/CD pipelines, automation, and system monitoring. My path here ran through system
+              administration and hands-on troubleshooting — work that trained me to think in root
+              causes, not symptoms. I care about{' '}
+              <span className="font-medium text-mist-100">why</span> a system fails, not just
+              restarting it.
             </p>
             <p className="mt-5 text-[15px] leading-relaxed text-mist-400 sm:text-base">
-              Since then I&apos;ve been deliberately building toward infrastructure and cloud work —
-              administering Linux systems day to day, containerizing applications with Docker,
-              and provisioning AWS infrastructure (EC2, ECS, ECR, VPC, S3, Auto Scaling and ELB) with
-              proper network security in place. I&apos;m currently completing a Bachelor&apos;s in
-              Information Technology while continuing to build hands-on lab experience in CI/CD and
-              automation.
+              Day to day, I administer Linux systems, containerize applications with Docker, and
+              provision AWS infrastructure (EC2, ECS, ECR, VPC, S3, Auto Scaling and ELB) with proper
+              network security in place. I focus on streamlining deployments and improving system
+              reliability, and I keep building on my OTHM Level 6 in Information Technology with
+              hands-on lab work in CI/CD and automation — always aiming for infrastructure that&apos;s
+              scalable, automated, and reliable.
             </p>
 
             <div className="mt-6 flex flex-wrap gap-2 border-t border-white/[0.07] pt-6 sm:mt-8 sm:gap-2.5 sm:pt-8">
