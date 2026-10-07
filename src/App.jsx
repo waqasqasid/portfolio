@@ -5,6 +5,7 @@ import CustomCursor from './components/CustomCursor'
 import AmbientBackground from './components/AmbientBackground'
 import Navbar from './components/Navbar'
 import ScrollToTop from './components/ScrollToTop'
+import WhatsAppButton from './components/WhatsAppButton'
 import ScrollProgress from './components/ScrollProgress'
 import Toast from './components/Toast'
 import Hero from './sections/Hero'
@@ -58,6 +59,7 @@ export default function App() {
       </motion.main>
 
       <ScrollToTop />
+      <WhatsAppButton />
     </>
   )
 }
