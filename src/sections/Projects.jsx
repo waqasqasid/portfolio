@@ -22,7 +22,7 @@ export default function Projects() {
     <section id="projects" className="section-padding">
       <div className="container-x">
         <SectionHeading
-          index="03"
+          index="04"
           eyebrow="projects"
           title="Hands-on lab work"
           description="Practical projects I've built to apply DevOps concepts — containerization, cloud infrastructure, networking, and automation."

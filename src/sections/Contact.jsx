@@ -46,7 +46,7 @@ export default function Contact({ onToast }) {
     <section id="contact" className="section-padding">
       <div className="container-x">
         <SectionHeading
-          index="05"
+          index="06"
           eyebrow="contact"
           title="Let's talk infrastructure"
           description="Open to DevOps, Cloud, and Linux administration roles — reach out and I'll get back to you."

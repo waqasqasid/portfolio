@@ -31,7 +31,7 @@ export default function Skills() {
     <section id="skills" className="section-padding">
       <div className="container-x">
         <SectionHeading
-          index="02"
+          index="03"
           eyebrow="skills"
           title="The stack I operate in"
           description="Grouped by domain — the tools and platforms I use to keep systems running and deployments predictable."

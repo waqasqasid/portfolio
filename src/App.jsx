@@ -10,6 +10,7 @@ import ScrollProgress from './components/ScrollProgress'
 import Toast from './components/Toast'
 import Hero from './sections/Hero'
 import About from './sections/About'
+import Intro from './sections/Intro'
 import TechMarquee from './sections/TechMarquee'
 import Stats from './sections/Stats'
 import Skills from './sections/Skills'
@@ -51,6 +52,7 @@ export default function App() {
         <TechMarquee />
         <Stats />
         <About />
+        <Intro />
         <Skills />
         <Projects />
         <Experience />

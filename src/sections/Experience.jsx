@@ -7,7 +7,7 @@ export default function Experience() {
     <section id="experience" className="section-padding">
       <div className="container-x">
         <SectionHeading
-          index="04"
+          index="05"
           eyebrow="experience"
           title="Where I've worked"
           description="A timeline of my roles so far — from student support to hands-on DevOps."
