@@ -4,7 +4,11 @@ import { Play, Pause, Volume2, VolumeX, Maximize2 } from 'lucide-react'
 import SectionHeading from '../components/SectionHeading'
 
 // Drop the video at public/intro.mp4 (BASE_URL keeps it working under /portfolio/).
-const VIDEO_SRC = `${import.meta.env.BASE_URL}intro.mp4#t=0.1`
+// The root-base build (InfinityFree) can't host files over 10 MB, so it streams the GitHub Pages copy.
+const VIDEO_SRC =
+  import.meta.env.BASE_URL === '/'
+    ? 'https://waqasqasid.github.io/portfolio/intro.mp4#t=0.1'
+    : `${import.meta.env.BASE_URL}intro.mp4#t=0.1`
 
 const CORNERS = [
   'left-0 top-0 border-l-2 border-t-2 rounded-tl-xl',
@@ -41,7 +45,7 @@ export default function Intro() {
     const v = videoRef.current
     if (!v) return
     if (v.paused) {
-      v.play()
+      v.play().catch((err) => console.error('Intro video failed to play:', err))
       setStarted(true)
     } else {
       v.pause()

@@ -37,6 +37,12 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./dist-infinity/
           server-dir: /htdocs/
+          # Over InfinityFree's 10 MB file limit; the site streams it from GitHub Pages instead.
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/node_modules/**
+            intro.mp4
 
   github-pages:
     name: Deploy to GitHub Pages
