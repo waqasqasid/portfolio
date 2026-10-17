@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react'
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion'
-import { Play, Pause, Volume2, VolumeX, Maximize2 } from 'lucide-react'
+import { Play, Pause, Volume2, VolumeX, Maximize2, RotateCcw, RotateCw } from 'lucide-react'
 import SectionHeading from '../components/SectionHeading'
 
 // Drop the video at public/intro.mp4 (BASE_URL keeps it working under /portfolio/).
@@ -17,12 +17,35 @@ const CORNERS = [
   'right-0 bottom-0 border-r-2 border-b-2 rounded-br-xl',
 ]
 
+const SKIP_SECONDS = 10
+
+// Fixed positions so sparkles don't jump between renders.
+const SPARKLES = Array.from({ length: 16 }, (_, i) => ({
+  left: `${(i * 41 + 7) % 100}%`,
+  top: `${(i * 23 + 13) % 100}%`,
+  size: 2 + (i % 3),
+  delay: `${-((i * 0.7) % 3)}s`,
+}))
+
+const formatTime = (t) => {
+  if (!Number.isFinite(t)) return '0:00'
+  const m = Math.floor(t / 60)
+  const s = Math.floor(t % 60)
+  return `${m}:${s.toString().padStart(2, '0')}`
+}
+
 export default function Intro() {
   const videoRef = useRef(null)
+  const barRef = useRef(null)
   const [playing, setPlaying] = useState(false)
   const [muted, setMuted] = useState(false)
   const [started, setStarted] = useState(false)
-  const [progress, setProgress] = useState(0)
+  const [currentTime, setCurrentTime] = useState(0)
+  const [duration, setDuration] = useState(0)
+  const [buffered, setBuffered] = useState(0)
+  const [dragging, setDragging] = useState(false)
+  const [hoverRatio, setHoverRatio] = useState(null)
+  const [skipFlash, setSkipFlash] = useState(null)
 
   // Subtle 3D tilt that follows the cursor.
   const mx = useMotionValue(0)
@@ -61,15 +84,101 @@ export default function Intro() {
 
   const goFullscreen = () => videoRef.current?.requestFullscreen?.()
 
-  const seek = (e) => {
+  const seekTo = (time) => {
     const v = videoRef.current
     if (!v?.duration) return
-    const rect = e.currentTarget.getBoundingClientRect()
-    v.currentTime = ((e.clientX - rect.left) / rect.width) * v.duration
+    v.currentTime = Math.min(Math.max(time, 0), v.duration)
+    setCurrentTime(v.currentTime)
   }
 
+  const skip = (seconds) => {
+    const v = videoRef.current
+    if (!v) return
+    seekTo(v.currentTime + seconds)
+    setSkipFlash({ dir: seconds > 0 ? 'fwd' : 'back', key: Date.now() })
+  }
+
+  const ratioFromPointer = (e) => {
+    const rect = barRef.current.getBoundingClientRect()
+    return Math.min(Math.max((e.clientX - rect.left) / rect.width, 0), 1)
+  }
+
+  // Pointer capture keeps the scrub going even if the cursor leaves the bar.
+  const handleBarDown = (e) => {
+    e.currentTarget.setPointerCapture(e.pointerId)
+    setDragging(true)
+    seekTo(ratioFromPointer(e) * duration)
+  }
+
+  const handleBarMove = (e) => {
+    const ratio = ratioFromPointer(e)
+    setHoverRatio(ratio)
+    if (dragging) seekTo(ratio * duration)
+  }
+
+  const handleBarUp = () => setDragging(false)
+
+  const handleKeyDown = (e) => {
+    const actions = {
+      ' ': togglePlay,
+      k: togglePlay,
+      ArrowLeft: () => skip(-5),
+      ArrowRight: () => skip(5),
+      j: () => skip(-SKIP_SECONDS),
+      l: () => skip(SKIP_SECONDS),
+      m: toggleMute,
+      f: goFullscreen,
+    }
+    const action = actions[e.key]
+    if (!action) return
+    e.preventDefault()
+    action()
+  }
+
+  const progress = duration ? currentTime / duration : 0
+  const showControls = !playing || dragging
+
   return (
-    <section id="intro" className="overflow-x-clip pb-16 pt-14 sm:pb-24 sm:pt-20 md:pb-32 md:pt-28">
+    <section id="intro" className="relative isolate overflow-x-clip pb-16 pt-14 sm:pb-24 sm:pt-20 md:pb-32 md:pt-28">
+      {/* Animated backdrop */}
+      <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden" aria-hidden="true">
+        {/* Perspective grid floor drifting toward the viewer */}
+        <div className="absolute inset-x-0 bottom-0 h-[60%] [perspective:600px]">
+          <div
+            className="absolute inset-x-[-50%] bottom-[-30%] top-0 animate-grid-scroll opacity-40 [transform:rotateX(65deg)]"
+            style={{
+              backgroundImage:
+                'linear-gradient(to right, rgb(var(--signal-cyan) / 0.5) 1px, transparent 1px), linear-gradient(to bottom, rgb(var(--signal-cyan) / 0.5) 1px, transparent 1px)',
+              backgroundSize: '48px 48px',
+              maskImage: 'linear-gradient(to top, #000 10%, transparent 90%)',
+              WebkitMaskImage: 'linear-gradient(to top, #000 10%, transparent 90%)',
+            }}
+          />
+        </div>
+
+        {/* Rings radiating out from behind the player */}
+        {[0, 2, 4].map((delay) => (
+          <span
+            key={delay}
+            className="absolute left-1/2 top-[58%] aspect-square w-[min(90vw,900px)] animate-ring-pulse rounded-full border border-signal-cyan/40"
+            style={{ animationDelay: `${delay}s` }}
+          />
+        ))}
+
+        {/* Drifting color blobs */}
+        <div className="absolute left-[5%] top-[25%] h-64 w-64 animate-blob rounded-full bg-signal-blue/20 blur-[100px]" />
+        <div className="absolute right-[5%] top-[45%] h-72 w-72 animate-blob rounded-full bg-signal-violet/20 blur-[100px] [animation-delay:5s]" />
+
+        {/* Twinkling sparkles */}
+        {SPARKLES.map((p, i) => (
+          <span
+            key={i}
+            className="absolute animate-twinkle rounded-full bg-signal-cyan shadow-[0_0_10px_rgb(var(--signal-cyan)/0.9)]"
+            style={{ left: p.left, top: p.top, width: p.size, height: p.size, animationDelay: p.delay }}
+          />
+        ))}
+      </div>
+
       <div className="container-x">
         <SectionHeading
           index="02"
@@ -137,7 +246,12 @@ export default function Intro() {
               </div>
 
               {/* Video */}
-              <div className="group relative aspect-video">
+              <div
+                tabIndex={0}
+                onKeyDown={handleKeyDown}
+                aria-label="Intro video player. Space to play or pause, arrow keys to seek."
+                className="group relative aspect-video outline-none focus-visible:ring-2 focus-visible:ring-signal-cyan"
+              >
                 <video
                   ref={videoRef}
                   src={VIDEO_SRC}
@@ -147,9 +261,15 @@ export default function Intro() {
                   onPlay={() => setPlaying(true)}
                   onPause={() => setPlaying(false)}
                   onEnded={() => setPlaying(false)}
+                  onLoadedMetadata={(e) => setDuration(e.currentTarget.duration)}
                   onTimeUpdate={(e) => {
+                    if (!dragging) setCurrentTime(e.currentTarget.currentTime)
+                  }}
+                  onProgress={(e) => {
                     const v = e.currentTarget
-                    setProgress(v.duration ? v.currentTime / v.duration : 0)
+                    if (v.duration && v.buffered.length) {
+                      setBuffered(v.buffered.end(v.buffered.length - 1) / v.duration)
+                    }
                   }}
                   className="h-full w-full cursor-pointer bg-black object-cover"
                 />
@@ -184,31 +304,89 @@ export default function Intro() {
                   <Play className="relative ml-1 h-8 w-8 fill-current sm:h-10 sm:w-10" />
                 </motion.button>
 
+                {/* Skip feedback */}
+                {skipFlash && (
+                  <motion.div
+                    key={skipFlash.key}
+                    initial={{ opacity: 0.9, scale: 0.8 }}
+                    animate={{ opacity: 0, scale: 1.2 }}
+                    transition={{ duration: 0.6 }}
+                    className={`pointer-events-none absolute top-1/2 flex h-16 w-16 -translate-y-1/2 items-center justify-center rounded-full bg-black/50 text-white ${
+                      skipFlash.dir === 'fwd' ? 'right-[15%]' : 'left-[15%]'
+                    }`}
+                  >
+                    {skipFlash.dir === 'fwd' ? <RotateCw className="h-7 w-7" /> : <RotateCcw className="h-7 w-7" />}
+                  </motion.div>
+                )}
+
                 {/* Control bar */}
-                {started && (
-                  <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent px-4 pb-3 pt-10 opacity-0 transition-opacity duration-300 group-hover:opacity-100 focus-within:opacity-100">
-                    <div
-                      onClick={seek}
-                      className="mb-3 h-1 w-full cursor-pointer overflow-hidden rounded-full bg-white/20"
-                    >
+                <div
+                  className={`absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 via-black/40 to-transparent px-3 pb-2.5 pt-12 transition-opacity duration-300 group-hover:opacity-100 group-focus-within:opacity-100 sm:px-4 sm:pb-3 ${
+                    showControls ? 'opacity-100' : 'opacity-0'
+                  }`}
+                >
+                  {/* Seek bar: click or drag to scrub */}
+                  <div
+                    ref={barRef}
+                    role="slider"
+                    aria-label="Seek"
+                    aria-valuemin={0}
+                    aria-valuemax={Math.round(duration)}
+                    aria-valuenow={Math.round(currentTime)}
+                    aria-valuetext={`${formatTime(currentTime)} of ${formatTime(duration)}`}
+                    onPointerDown={handleBarDown}
+                    onPointerMove={handleBarMove}
+                    onPointerUp={handleBarUp}
+                    onPointerCancel={handleBarUp}
+                    onPointerLeave={() => setHoverRatio(null)}
+                    className="group/bar relative mb-2 flex h-4 cursor-pointer touch-none items-center"
+                  >
+                    <div className="relative h-1 w-full rounded-full bg-white/20 transition-[height] duration-200 group-hover/bar:h-1.5">
+                      <div className="absolute inset-y-0 left-0 rounded-full bg-white/30" style={{ width: `${buffered * 100}%` }} />
                       <div
-                        className="h-full rounded-full bg-gradient-to-r from-signal-blue to-signal-cyan"
+                        className="absolute inset-y-0 left-0 rounded-full bg-gradient-to-r from-signal-blue to-signal-cyan"
                         style={{ width: `${progress * 100}%` }}
                       />
                     </div>
-                    <div className="flex items-center gap-2 text-mist-100">
-                      <button type="button" onClick={togglePlay} aria-label={playing ? 'Pause' : 'Play'} className="rounded-md p-1.5 hover:bg-white/10">
-                        {playing ? <Pause className="h-4 w-4" /> : <Play className="h-4 w-4" />}
-                      </button>
-                      <button type="button" onClick={toggleMute} aria-label={muted ? 'Unmute' : 'Mute'} className="rounded-md p-1.5 hover:bg-white/10">
-                        {muted ? <VolumeX className="h-4 w-4" /> : <Volume2 className="h-4 w-4" />}
-                      </button>
-                      <button type="button" onClick={goFullscreen} aria-label="Fullscreen" className="ml-auto rounded-md p-1.5 hover:bg-white/10">
-                        <Maximize2 className="h-4 w-4" />
-                      </button>
-                    </div>
+                    <span
+                      className={`absolute top-1/2 h-3.5 w-3.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white shadow-[0_0_10px_rgb(var(--signal-cyan))] transition-transform duration-150 ${
+                        dragging ? 'scale-125' : 'scale-0 group-hover/bar:scale-100'
+                      }`}
+                      style={{ left: `${progress * 100}%` }}
+                    />
+                    {hoverRatio !== null && duration > 0 && (
+                      <span
+                        className="pointer-events-none absolute bottom-full mb-2 -translate-x-1/2 rounded bg-black/80 px-1.5 py-0.5 font-mono text-[10px] text-white"
+                        style={{ left: `${hoverRatio * 100}%` }}
+                      >
+                        {formatTime(hoverRatio * duration)}
+                      </span>
+                    )}
                   </div>
-                )}
+
+                  <div className="flex items-center gap-1 text-white sm:gap-2">
+                    <button type="button" onClick={togglePlay} aria-label={playing ? 'Pause' : 'Play'} className="rounded-md p-1.5 hover:bg-white/15">
+                      {playing ? <Pause className="h-4 w-4 fill-current" /> : <Play className="h-4 w-4 fill-current" />}
+                    </button>
+                    <button type="button" onClick={() => skip(-SKIP_SECONDS)} aria-label={`Back ${SKIP_SECONDS} seconds`} className="relative rounded-md p-1.5 hover:bg-white/15">
+                      <RotateCcw className="h-4 w-4" />
+                      <span className="absolute inset-0 flex items-center justify-center pt-px text-[7px] font-bold">{SKIP_SECONDS}</span>
+                    </button>
+                    <button type="button" onClick={() => skip(SKIP_SECONDS)} aria-label={`Forward ${SKIP_SECONDS} seconds`} className="relative rounded-md p-1.5 hover:bg-white/15">
+                      <RotateCw className="h-4 w-4" />
+                      <span className="absolute inset-0 flex items-center justify-center pt-px text-[7px] font-bold">{SKIP_SECONDS}</span>
+                    </button>
+                    <button type="button" onClick={toggleMute} aria-label={muted ? 'Unmute' : 'Mute'} className="rounded-md p-1.5 hover:bg-white/15">
+                      {muted ? <VolumeX className="h-4 w-4" /> : <Volume2 className="h-4 w-4" />}
+                    </button>
+                    <span className="ml-1 font-mono text-[11px] tabular-nums text-white/80">
+                      {formatTime(currentTime)} / {formatTime(duration)}
+                    </span>
+                    <button type="button" onClick={goFullscreen} aria-label="Fullscreen" className="ml-auto rounded-md p-1.5 hover:bg-white/15">
+                      <Maximize2 className="h-4 w-4" />
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
           </motion.div>

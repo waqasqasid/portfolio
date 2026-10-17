@@ -52,6 +52,9 @@ export default {
         aurora: 'aurora 18s ease-in-out infinite',
         'spin-slow': 'spin 8s linear infinite',
         rise: 'rise linear infinite',
+        'ring-pulse': 'ring-pulse 6s cubic-bezier(0.22, 1, 0.36, 1) infinite',
+        'grid-scroll': 'grid-scroll 3s linear infinite',
+        twinkle: 'twinkle 3s ease-in-out infinite',
       },
       keyframes: {
         blob: {
@@ -84,6 +87,19 @@ export default {
         aurora: {
           '0%, 100%': { transform: 'translate(0, 0) rotate(0deg) scale(1)' },
           '50%': { transform: 'translate(-6%, 4%) rotate(8deg) scale(1.08)' },
+        },
+        'ring-pulse': {
+          '0%': { transform: 'translate(-50%, -50%) scale(0.6)', opacity: 0 },
+          '20%': { opacity: 0.6 },
+          '100%': { transform: 'translate(-50%, -50%) scale(1.6)', opacity: 0 },
+        },
+        'grid-scroll': {
+          from: { backgroundPosition: '0 0' },
+          to: { backgroundPosition: '0 48px' },
+        },
+        twinkle: {
+          '0%, 100%': { opacity: 0.15, transform: 'scale(0.6)' },
+          '50%': { opacity: 1, transform: 'scale(1)' },
         },
       },
     },
